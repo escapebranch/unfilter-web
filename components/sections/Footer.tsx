@@ -1,6 +1,6 @@
 'use client';
 
-import { Layers } from 'lucide-react';
+import Image from 'next/image';
 
 export const Footer = () => {
   return (
@@ -8,8 +8,14 @@ export const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-graphite-800 flex items-center justify-center">
-            <Layers className="w-5 h-5 text-steel-400" />
+          <div className="w-10 h-10 rounded-xl bg-graphite-800 flex items-center justify-center p-2">
+            <Image
+              src="/images/black-unfilter-bg-white.png"
+              alt="Unfilter Logo"
+              width={24}
+              height={24}
+              className="w-full h-full object-contain"
+            />
           </div>
           <span className="text-lg font-semibold text-graphite-200">Unfilter</span>
         </div>

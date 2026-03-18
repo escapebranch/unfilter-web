@@ -31,14 +31,14 @@ export const ScreenshotShowcase = ({ item, index }: ScreenshotShowcaseProps) => 
     <motion.div
       ref={ref}
       style={{ opacity }}
-      className="grid lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-20 items-center"
+      className="grid lg:grid-cols-2 gap-6 lg:gap-12 xl:gap-16 items-center w-full max-w-full"
     >
       {/* Text Content */}
       <div className={`${isEven ? 'lg:order-1' : 'lg:order-2'}`}>
         <motion.div style={{ y }} className="space-y-3 lg:space-y-4">
           <span className="text-caption text-steel-400 tracking-[0.2em] uppercase">{item.num}</span>
-          <h3 className="text-2xl lg:text-3xl xl:text-4xl font-semibold text-graphite-50 leading-tight tracking-tight">{item.title}</h3>
-          <p className="text-base lg:text-lg text-graphite-400 max-w-md leading-relaxed">{item.caption}</p>
+          <h3 className="text-xl lg:text-2xl xl:text-3xl font-semibold text-graphite-50 leading-tight tracking-tight break-words">{item.title}</h3>
+          <p className="text-sm lg:text-base text-graphite-400 max-w-sm lg:max-w-md leading-relaxed break-words">{item.caption}</p>
         </motion.div>
       </div>
 
@@ -49,31 +49,31 @@ export const ScreenshotShowcase = ({ item, index }: ScreenshotShowcaseProps) => 
           whileHover={{ scale: 1.02 }}
           transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] as const }}
         >
-          <div className="relative grid grid-cols-2 gap-3 lg:gap-4">
+          <div className="relative grid grid-cols-2 gap-2 lg:gap-3 w-full max-w-full">
             {/* Dark Mode Frame */}
-            <div className="relative aspect-[9/19] rounded-2xl lg:rounded-3xl overflow-hidden border border-graphite-800 shadow-xl lg:shadow-2xl bg-graphite-900">
+            <div className="relative aspect-[9/19] rounded-xl lg:rounded-2xl overflow-hidden border border-graphite-800 shadow-lg lg:shadow-xl bg-graphite-900 w-full">
               <Image
                 src={item.dark}
                 alt={`${item.title} dark mode`}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 45vw, 22vw"
+                sizes="(max-width: 768px) 40vw, 20vw"
               />
-              <div className="absolute top-2 lg:top-3 left-2 lg:left-3 px-2 py-1 lg:px-3 lg:py-1.5 rounded-full bg-black/70 backdrop-blur-md border border-white/10">
+              <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10">
                 <span className="text-xs font-medium text-graphite-200 tracking-wide">Dark</span>
               </div>
             </div>
 
             {/* Light Mode Frame */}
-            <div className="relative aspect-[9/19] rounded-2xl lg:rounded-3xl overflow-hidden border border-graphite-800 shadow-xl lg:shadow-2xl bg-white">
+            <div className="relative aspect-[9/19] rounded-xl lg:rounded-2xl overflow-hidden border border-graphite-800 shadow-lg lg:shadow-xl bg-white w-full">
               <Image
                 src={item.light}
                 alt={`${item.title} light mode`}
                 fill
                 className="object-cover"
-                sizes="(max-width: 768px) 45vw, 22vw"
+                sizes="(max-width: 768px) 40vw, 20vw"
               />
-              <div className="absolute top-2 lg:top-3 left-2 lg:left-3 px-2 py-1 lg:px-3 lg:py-1.5 rounded-full bg-white/90 backdrop-blur-md border border-graphite-200/50">
+              <div className="absolute top-2 left-2 px-2 py-1 rounded-full bg-white/90 backdrop-blur-md border border-graphite-200/50">
                 <span className="text-xs font-medium text-graphite-800 tracking-wide">Light</span>
               </div>
             </div>

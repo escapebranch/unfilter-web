@@ -7,8 +7,8 @@ import { staggerContainer, fadeUpVariants } from '@/lib/animations';
 
 export const FeaturesSection = () => {
   return (
-    <section className="py-24 lg:py-32 px-6 sm:px-8 lg:px-16">
-      <div className="max-w-7xl mx-auto">
+    <section className="py-12 sm:py-16 lg:py-24 xl:py-32 px-4 sm:px-6 lg:px-16 w-full max-w-full overflow-x-hidden">
+      <div className="max-w-7xl mx-auto w-full">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -26,13 +26,13 @@ export const FeaturesSection = () => {
           <motion.h2 
             variants={fadeUpVariants} 
             custom={0.1} 
-            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold max-w-3xl lg:max-w-4xl leading-tight tracking-tight"
+            className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold max-w-2xl lg:max-w-3xl xl:max-w-4xl leading-tight tracking-tight break-words"
           >
             Technical intelligence for the curious.
           </motion.h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+        <div className="grid md:grid-cols-2 gap-4 lg:gap-6 xl:gap-8 w-full">
           {features.map((feature, i) => (
             <FeatureCard key={feature.title} {...feature} index={i} />
           ))}

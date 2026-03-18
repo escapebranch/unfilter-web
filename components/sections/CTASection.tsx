@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { Download, ExternalLink } from 'lucide-react';
+import Image from 'next/image';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 
 export const CTASection = () => {

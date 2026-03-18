@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 
 export const stats = [
-  { value: '50+', label: 'Framework Signatures' },
+  { value: '10+', label: 'Framework Signatures' },
   { value: 'Offline', label: 'First Scanning' },
   { value: '~9MB', label: 'Binary Size' },
   { value: 'MIT', label: 'Open Source' },

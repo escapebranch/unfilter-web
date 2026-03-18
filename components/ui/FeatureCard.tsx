@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
 import { fadeUpVariants } from '@/lib/animations';
 
 interface FeatureCardProps {
@@ -15,6 +16,7 @@ interface FeatureCardProps {
 
 export const FeatureCard = ({ icon: Icon, title, description, color, index }: FeatureCardProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const isLogoCard = false; // No logo cards, use icons only
   
   const colors: Record<string, string> = {
     steel: 'text-steel-400',
@@ -44,7 +46,17 @@ export const FeatureCard = ({ icon: Icon, title, description, color, index }: Fe
           animate={{ rotate: isHovered ? 5 : 0, scale: isHovered ? 1.05 : 1 }}
           transition={{ duration: 0.3 }}
         >
-          <Icon className="w-7 h-7" />
+          {isLogoCard ? (
+            <Image
+              src="/images/black-unfilter-bg-white.png"
+              alt="Unfilter Logo"
+              width={28}
+              height={28}
+              className="w-7 h-7 object-contain"
+            />
+          ) : (
+            <Icon className="w-7 h-7" />
+          )}
         </motion.div>
         
         <h3 className="text-xl lg:text-2xl font-semibold text-graphite-50 mb-4 leading-tight">{title}</h3>
