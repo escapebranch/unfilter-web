@@ -26,13 +26,13 @@ export const InterfaceSection = () => {
           <motion.h2 
             variants={fadeUpVariants} 
             custom={0.1} 
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold max-w-4xl leading-tight tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold max-w-3xl lg:max-w-4xl leading-tight tracking-tight"
           >
             Designed for clarity, built for depth.
           </motion.h2>
         </motion.div>
 
-        <div className="space-y-32 lg:space-y-40">
+        <div className="space-y-24 lg:space-y-32 xl:space-y-40">
           {screenshots.map((item, i) => (
             <ScreenshotShowcase key={item.title} item={item} index={i} />
           ))}

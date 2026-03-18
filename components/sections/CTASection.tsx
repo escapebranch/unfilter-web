@@ -19,7 +19,7 @@ export const CTASection = () => {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-steel-500/10 rounded-full blur-[120px] -translate-y-1/2" />
           
           <div className="relative z-10">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-semibold mb-6 lg:mb-8 leading-tight tracking-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-6 lg:mb-8 leading-tight tracking-tight">
               Make your phone feel <span className="text-steel-400">transparent</span> again.
             </h2>
             <p className="text-lg lg:text-xl text-graphite-400 mb-12 lg:mb-14 max-w-2xl mx-auto leading-relaxed">

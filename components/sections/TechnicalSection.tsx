@@ -27,7 +27,7 @@ export const TechnicalSection = () => {
             <motion.h2 
               variants={fadeUpVariants} 
               custom={0.1} 
-              className="text-4xl sm:text-5xl lg:text-6xl font-semibold mb-10 lg:mb-12 leading-tight tracking-tight"
+              className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-10 lg:mb-12 leading-tight tracking-tight"
             >
               How it works
             </motion.h2>

@@ -26,7 +26,7 @@ export const FeaturesSection = () => {
           <motion.h2 
             variants={fadeUpVariants} 
             custom={0.1} 
-            className="text-4xl sm:text-5xl lg:text-6xl font-semibold max-w-4xl leading-tight tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold max-w-3xl lg:max-w-4xl leading-tight tracking-tight"
           >
             Technical intelligence for the curious.
           </motion.h2>

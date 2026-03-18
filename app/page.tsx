@@ -8,14 +8,16 @@ import { Footer } from '@/components/sections/Footer';
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-graphite-950 text-graphite-50 overflow-x-hidden">
-      <HeroSection />
-      <FeaturesSection />
-      <InterfaceSection />
-      <TechnicalSection />
-      <TrustSection />
-      <CTASection />
-      <Footer />
+    <div className="min-h-screen bg-graphite-950 text-graphite-50">
+      <div className="overflow-x-hidden">
+        <HeroSection />
+        <FeaturesSection />
+        <InterfaceSection />
+        <TechnicalSection />
+        <TrustSection />
+        <CTASection />
+        <Footer />
+      </div>
     </div>
   );
 }

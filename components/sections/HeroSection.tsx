@@ -41,7 +41,7 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.1, ease: [0.23, 1, 0.32, 1] as const }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-semibold max-w-6xl mb-6 lg:mb-8 leading-[0.95] tracking-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-semibold max-w-5xl lg:max-w-6xl mb-6 lg:mb-8 leading-[0.95] tracking-tight"
         >
           Peel back the icon.
           <br />
@@ -53,7 +53,7 @@ export const HeroSection = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
-          className="text-lg sm:text-xl lg:text-2xl text-graphite-400 max-w-3xl mb-10 lg:mb-14 leading-relaxed"
+          className="text-base sm:text-lg lg:text-xl text-graphite-400 max-w-2xl lg:max-w-3xl mb-10 lg:mb-14 leading-relaxed"
         >
           Unfilter uncovers what installed apps are built with, layered with task-manager signal, 
           memory/storage insight, and privacy-first local scanning. Know your phone&apos;s software DNA.
@@ -111,7 +111,7 @@ export const HeroSection = () => {
         initial={{ opacity: 0, scale: 0.9, y: 40 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ duration: 1.2, delay: 0.4, ease: [0.23, 1, 0.32, 1] as const }}
-        className="absolute right-0 top-1/2 -translate-y-1/2 w-[50%] h-[75%] hidden xl:block pointer-events-none"
+        className="absolute right-0 top-1/2 -translate-y-1/2 w-[45%] h-[70%] hidden 2xl:block pointer-events-none"
       >
         <div className="relative w-full h-full">
           <Image
