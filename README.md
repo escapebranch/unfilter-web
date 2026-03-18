@@ -4,7 +4,7 @@ Landing page for **Unfilter**, built with Next.js App Router + Tailwind CSS + Fr
 
 ## Stack
 
-- Next.js (static export)
+- Next.js
 - Tailwind CSS
 - Framer Motion
 - Geist font
@@ -16,16 +16,18 @@ npm install
 npm run dev
 ```
 
-## Build for GitHub Pages
+## Build
 
 ```bash
 npm run build
 ```
 
-The static site is generated in `out/` and deployed with `.github/workflows/deploy.yml`.
+## Deploy to Vercel
 
-`next.config.mjs` is configured with:
+Set:
 
-- `output: 'export'`
-- `trailingSlash: true`
-- dynamic `basePath`/`assetPrefix` from `GITHUB_REPOSITORY`
+```bash
+NEXT_PUBLIC_SITE_URL=https://your-project-name.vercel.app
+```
+
+Then import the repo into Vercel and deploy with the default Next.js settings.
