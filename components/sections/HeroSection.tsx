@@ -46,7 +46,7 @@ export const HeroSection = () => {
             transition={{ duration: 1, delay: 0.1, ease: [0.23, 1, 0.32, 1] as const }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold max-w-4xl lg:max-w-5xl xl:max-w-6xl mb-6 lg:mb-8 leading-[0.9] tracking-tight break-words font-sans"
           >
-            Peel back the icon.
+            Unfilter. Peel back the icon.
             <br />
             <span className="text-graphite-400 font-normal">See the stack.</span>
           </motion.h1>

@@ -21,16 +21,33 @@ export const Footer = () => {
         </div>
         
         {/* Links */}
-        <div className="flex items-center gap-8 lg:gap-10 text-sm text-graphite-500">
-          <a href="#" className="hover:text-graphite-300 transition-colors">GitHub</a>
-          <a href="#" className="hover:text-graphite-300 transition-colors">Play Store</a>
-          <a href="#" className="hover:text-graphite-300 transition-colors">Issues</a>
-          <a href="#" className="hover:text-graphite-300 transition-colors">License</a>
+        <div className="flex flex-wrap gap-6 lg:gap-8 text-sm">
+          <a href="https://github.com/your-repo/unfilter" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            GitHub
+          </a>
+          <a href="#" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            Documentation
+          </a>
+          <a href="#" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            Releases
+          </a>
+          <a href="/privacy" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            Privacy Policy
+          </a>
+          <a href="#" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            Play Store
+          </a>
+          <a href="#" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            Issues
+          </a>
+          <a href="#" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            License
+          </a>
         </div>
         
         {/* Copyright */}
         <span className="text-xs text-graphite-600 tracking-wide">
-          © 2024 Unfilter. MIT Licensed.
+          2024 Unfilter. MIT Licensed.
         </span>
       </div>
     </footer>
