@@ -8,6 +8,7 @@ import { MagneticButton } from '@/components/ui/MagneticButton';
 import { StatPill } from '@/components/ui/StatPill';
 import { stats } from '@/lib/data';
 import { useRef } from 'react';
+import { PhoneMockup } from '@/components/ui/PhoneMockup';
 
 export const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -105,6 +106,9 @@ export const HeroSection = () => {
           </motion.div>
         </motion.div>
       </div>
+
+      {/* Phone mockup (right) */}
+      <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" />
 
       {/* Scroll Indicator */}
       <motion.div
