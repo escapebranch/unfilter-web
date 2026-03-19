@@ -5,7 +5,7 @@ import { RefObject } from 'react';
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 
 interface PhoneMockupProps {
-  targetRef: RefObject<HTMLElement>;
+  targetRef: RefObject<HTMLElement | null>;
   src: string;
 }
 
