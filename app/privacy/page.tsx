@@ -151,13 +151,18 @@ export default function PrivacyPage() {
             <section>
               <h2 className="text-2xl lg:text-3xl font-semibold mb-4 text-graphite-50">Open Source Transparency</h2>
               <p className="text-graphite-300 leading-relaxed mb-4">
-                Unfilter is an open-source project released under the MIT License. This means our entire source code is publicly available for review, audit, and verification.
+                We maintain an open-source version of Unfilter that is fully available under the MIT License. You can review the source, audit the implementation, and contribute on GitHub.
               </p>
               <p className="text-graphite-300 leading-relaxed mb-4">
-                You can review our code to verify that we do exactly what we say: perform local analysis without collecting or transmitting any data. We believe in transparency and invite technical users to examine our implementation.
+                Note: the version distributed on the Google Play Store is kept closed-source for business reasons. The open-source repository at
+                {' '}
+                <a href="https://github.com/escapebranch/unfilter" className="text-steel-400 hover:text-steel-300 transition-colors">
+                  github.com/escapebranch/unfilter
+                </a>
+                {' '}contains the same features as the Play Store release and often receives faster updates and fixes.
               </p>
               <p className="text-graphite-300 leading-relaxed">
-                Our source code is available on GitHub, where you can see exactly how the app works, what permissions it uses, and how data is processed locally on your device.
+                We believe in transparency and invite technical users to examine our implementation to verify that all analysis is performed locally and no data is transmitted off your device.
               </p>
             </section>
 
@@ -200,15 +205,15 @@ export default function PrivacyPage() {
                   <strong className="text-graphite-100">Project:</strong> Unfilter
                 </p>
                 <p className="text-graphite-300 mb-2">
-                  <strong className="text-graphite-100">GitHub:</strong>{' '}
-                  <a href="https://github.com/your-repo/unfilter" className="text-steel-400 hover:text-steel-300 transition-colors">
-                    github.com/your-repo/unfilter
+                  <strong className="text-graphite-100">Try Open Source:</strong>{' '}
+                  <a href="https://github.com/escapebranch/unfilter" className="text-steel-400 hover:text-steel-300 transition-colors">
+                    github.com/escapebranch/unfilter
                   </a>
                 </p>
                 <p className="text-graphite-300">
                   <strong className="text-graphite-100">Email:</strong>{' '}
-                  <a href="mailto:privacy@unfilter.app" className="text-steel-400 hover:text-steel-300 transition-colors">
-                    privacy@unfilter.app
+                  <a href="mailto:escapebranch@protonmail.com" className="text-steel-400 hover:text-steel-300 transition-colors">
+                    escapebranch@protonmail.com
                   </a>
                 </p>
               </div>

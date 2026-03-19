@@ -3,6 +3,7 @@
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
 import { Play, Github, ChevronDown, Smartphone } from 'lucide-react';
+import { GithubStarChip } from '@/components/ui/GithubStarChip';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { StatPill } from '@/components/ui/StatPill';
 import { stats } from '@/lib/data';
@@ -34,7 +35,13 @@ export const HeroSection = () => {
             className="mb-6 lg:mb-8"
           >
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-strong border border-white/10 backdrop-blur-sm">
-              <Smartphone className="w-4 h-4 text-steel-400" />
+              <Image
+                src="/white-unfilter-nobg.png"
+                alt="Unfilter logo"
+                width={16}
+                height={16}
+                className="w-4 h-4 object-contain"
+              />
               <span className="text-sm font-medium text-graphite-200 tracking-wide">For Android</span>
             </div>
           </motion.div>
@@ -73,9 +80,15 @@ export const HeroSection = () => {
               <Play className="w-4 h-4" fill="currentColor" />
               Download on Play Store
             </MagneticButton>
-            <MagneticButton variant="secondary">
+            <MagneticButton
+              variant="secondary"
+              onClick={() => window.open('https://github.com/escapebranch/unfilter', '_blank')}
+            >
               <Github className="w-4 h-4" />
               View Source
+              <span className="ml-3 -mr-1 hidden sm:inline-block">
+                <GithubStarChip />
+              </span>
             </MagneticButton>
           </motion.div>
 
