@@ -40,8 +40,11 @@ export const Footer = () => {
           <a href="/privacy" className="text-graphite-400 hover:text-graphite-200 transition-colors">
             Privacy Policy
           </a>
-          <a href="#" className="text-graphite-400 hover:text-graphite-200 transition-colors">
-            Play Store
+          <a href="/terms" className="text-graphite-400 hover:text-graphite-200 transition-colors">
+            Terms
+          </a>
+          <a href="https://play.google.com/store/apps/details?id=com.escapebranch.unfilter" target="_blank" rel="noreferrer noopener" className="flex items-center gap-2 text-graphite-400 hover:text-graphite-200 transition-colors">
+            <span>Play Store</span>
           </a>
           <a href="https://github.com/escapebranch/unfilter/issues" className="text-graphite-400 hover:text-graphite-200 transition-colors">
             Issues
@@ -53,7 +56,7 @@ export const Footer = () => {
         
         {/* Copyright */}
         <span className="text-xs text-graphite-600 tracking-wide">
-          2024 Unfilter. MIT Licensed.
+          2026 Unfilter. MIT Licensed.
         </span>
       </div>
     </footer>
