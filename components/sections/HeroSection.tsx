@@ -23,10 +23,11 @@ export const HeroSection = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-16 pt-20 pb-16 sm:pb-20 lg:pb-32 w-full max-w-full">
+    <section ref={containerRef} className="relative min-h-screen flex items-start lg:items-center justify-center px-4 sm:px-6 lg:px-16 pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-20 lg:pb-32 w-full max-w-full">
       <div className="max-w-4xl mx-auto w-full">
         <motion.div 
           style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
+          className="relative"
         >
           {/* Android Chip */}
           <motion.div
@@ -75,7 +76,7 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.23, 1, 0.32, 1] as const }}
-            className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 lg:mb-16 xl:mb-24"
+            className="flex flex-col sm:flex-row gap-4 mb-7 sm:mb-12 lg:mb-16 xl:mb-24"
           >
             <MagneticButton variant="primary">
               <Play className="w-4 h-4" fill="currentColor" />
@@ -103,6 +104,16 @@ export const HeroSection = () => {
             {stats.map((stat, i) => (
               <StatPill key={stat.label} {...stat} delay={0.8 + i * 0.1} />
             ))}
+          </motion.div>
+
+          {/* Mobile mockup */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.85, ease: [0.23, 1, 0.32, 1] as const }}
+            className="mt-10 flex justify-end pr-3 sm:pr-8 lg:hidden"
+          >
+            <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" mobile />
           </motion.div>
         </motion.div>
       </div>
