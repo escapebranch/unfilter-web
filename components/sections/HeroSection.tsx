@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { Play, Github, ChevronDown, Smartphone } from 'lucide-react';
+import { Play, Github, ChevronDown } from 'lucide-react';
 import { GithubStarChip } from '@/components/ui/GithubStarChip';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { StatPill } from '@/components/ui/StatPill';
@@ -111,9 +111,19 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.85, ease: [0.23, 1, 0.32, 1] as const }}
-            className="mt-10 flex justify-end pr-3 sm:pr-8 lg:hidden"
+            className="mt-10 relative h-52 sm:h-56 lg:hidden"
           >
-            <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" mobile />
+            <div className="absolute left-2 bottom-2 sm:left-6">
+              <PhoneMockup
+                targetRef={containerRef}
+                src="/images/filter-stack-bottomsheet-black.jpg"
+                mobile
+                mobileSide="left"
+              />
+            </div>
+            <div className="absolute right-3 bottom-0 sm:right-8">
+              <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" mobile mobileSide="right" />
+            </div>
           </motion.div>
         </motion.div>
       </div>
