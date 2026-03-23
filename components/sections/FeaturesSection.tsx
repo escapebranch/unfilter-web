@@ -21,14 +21,14 @@ export const FeaturesSection = () => {
             custom={0} 
             className="text-caption text-steel-400 uppercase block mb-4 tracking-[0.2em]"
           >
-            Capabilities
+            What It Does
           </motion.span>
           <motion.h2 
             variants={fadeUpVariants} 
             custom={0.1} 
             className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-semibold max-w-2xl lg:max-w-3xl xl:max-w-4xl leading-tight tracking-tight break-words"
           >
-            Technical intelligence for the curious.
+            Peek, play, and discover.
           </motion.h2>
         </motion.div>
 

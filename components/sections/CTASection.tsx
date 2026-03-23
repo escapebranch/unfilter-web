@@ -21,10 +21,10 @@ export const CTASection = () => {
           
           <div className="relative z-10">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-semibold mb-6 lg:mb-8 leading-tight tracking-tight">
-              Make your phone feel <span className="text-steel-400">transparent</span> again.
+              Peek into your apps <span className="text-steel-400">playfully</span>.
             </h2>
             <p className="text-lg lg:text-xl text-graphite-400 mb-12 lg:mb-14 max-w-2xl mx-auto leading-relaxed">
-              Inspect what your apps are really made of. Download Unfilter and see the stack behind every icon.
+              Unfilter makes exploring app internals fun and lightweight. Download now and discover what your phone is really made of.
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">

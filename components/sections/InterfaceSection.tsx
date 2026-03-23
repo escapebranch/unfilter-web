@@ -34,7 +34,7 @@ export const InterfaceSection = () => {
 
         <div className="space-y-24 lg:space-y-32 xl:space-y-40">
           {screenshots.map((item, i) => (
-            <ScreenshotShowcase key={item.title} item={item} index={i} />
+            <ScreenshotShowcase key={`${item.num}-${item.title}`} item={item} index={i} />
           ))}
         </div>
       </div>

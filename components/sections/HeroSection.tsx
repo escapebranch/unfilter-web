@@ -67,8 +67,9 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
             className="text-base lg:text-lg text-graphite-400 max-w-lg lg:max-w-xl mb-10 lg:mb-14 leading-relaxed"
           >
-            Unfilter uncovers what installed apps are built with, layered with task-manager signal, 
-            memory/storage insight, and privacy-first local scanning.
+            Unfilter is a playful dev tool for peeking into the apps on your phone. 
+            It helps you learn what apps are made of by spotting frameworks, native clues, 
+            shared libraries, and other fingerprints left behind by the build.
           </motion.p>
 
           {/* CTAs */}
