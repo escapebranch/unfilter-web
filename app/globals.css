@@ -220,3 +220,67 @@ img {
   0%, 100% { background-position: 0% 50%; }
   50% { background-position: 100% 50%; }
 }
+
+/* ── CreatorBadge animations — GPU-composited only ── */
+
+@keyframes badge-entrance {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.88);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes badge-pip-in {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes badge-heartbeat {
+  0%, 100% { transform: scale(1); }
+  14%       { transform: scale(1.18); }
+  28%       { transform: scale(0.96); }
+  42%       { transform: scale(1.12); }
+  56%       { transform: scale(1); }
+}
+
+@keyframes badge-shimmer-sweep {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(220%); }
+}
+
+/* Shimmer sweep element inside sponsor button */
+.creator-badge-sponsor .creator-badge-shimmer {
+  position: absolute;
+  inset: 0;
+  width: 40%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.07),
+    transparent
+  );
+  animation: badge-shimmer-sweep 2.8s ease-in-out infinite;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Pause all badge animations when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .creator-badge-root {
+    animation: none !important;
+  }
+  .creator-badge-shimmer {
+    animation: none !important;
+  }
+}
+

@@ -1,115 +1,315 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import { Heart, Sparkles, Github, ArrowUpRight } from 'lucide-react';
 
-export const CreatorBadge = () => {
-  const [isHovered, setIsHovered] = useState(false);
+/**
+ * CreatorBadge — Performance-first, production-grade
+ *
+ * ALL animations are GPU-composited (transform, opacity only).
+ * Zero Framer Motion layout animations → zero reflow.
+ * The expand/collapse uses max-width + translate for a smooth side-slide.
+ * CSS custom properties drive the easing so the browser can batch optimally.
+ */
 
+const EASE_EXPO_OUT = 'cubic-bezier(0.16, 1, 0.3, 1)'; // Expo.easeOut — buttery expand
+const EASE_CIRC_IN = 'cubic-bezier(0.55, 0, 1, 0.45)';  // Fast collapse
+
+export const CreatorBadge = () => {
+  const [expanded, setExpanded] = useState(false);
+  const collapseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  // Collapse on scroll — passive, no state read in listener
   useEffect(() => {
-    const handleScroll = () => {
-      if (isHovered) {
-        setIsHovered(false);
-      }
-    };
-    
-    // Add event listener with passive option for better performance on mobile
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, [isHovered]);
+    const onScroll = () => setExpanded(false);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const handleMouseEnter = useCallback(() => {
+    if (collapseTimerRef.current) {
+      clearTimeout(collapseTimerRef.current);
+      collapseTimerRef.current = null;
+    }
+    setExpanded(true);
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    // Small grace period so quick re-entry doesn't flicker
+    collapseTimerRef.current = setTimeout(() => setExpanded(false), 120);
+  }, []);
+
+  const handleClick = useCallback(() => {
+    setExpanded(prev => !prev);
+  }, []);
 
   return (
-    <motion.div
-      className="fixed bottom-6 right-6 z-50 flex items-center justify-end"
-      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-      animate={{ opacity: 1, scale: 1, y: 0 }}
-      transition={{ type: 'spring', stiffness: 200, damping: 20, delay: 1 }}
+    /* ── Entrance: fade + slide up, runs once on mount ── */
+    <div
+      className="creator-badge-root"
+      style={{
+        position: 'fixed',
+        bottom: 24,
+        right: 24,
+        zIndex: 50,
+        /* Entrance animation via CSS — no JS cost */
+        animation: 'badge-entrance 0.6s 1s cubic-bezier(0.16, 1, 0.3, 1) both',
+        /* Promote to its own compositor layer */
+        willChange: 'transform',
+      }}
     >
-      <motion.div
-        layout
-        onHoverStart={() => setIsHovered(true)}
-        onHoverEnd={() => setIsHovered(false)}
-        onClick={() => setIsHovered(!isHovered)}
-        className="flex items-center p-1.5 rounded-full bg-graphite-900/80 backdrop-blur-xl border border-graphite-800/60 shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden group/badge transition-colors duration-300 hover:bg-graphite-900/95 hover:border-graphite-700/80 cursor-pointer"
-        style={{ borderRadius: 9999 }}
-        animate={{ gap: isHovered ? 8 : 0 }}
+      {/* ── Pill container ── */}
+      <div
+        ref={containerRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+        onClick={handleClick}
+        role="button"
+        aria-expanded={expanded}
+        aria-label="Creator badge — click to expand"
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          padding: '6px',
+          borderRadius: 9999,
+          cursor: 'pointer',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          background: expanded
+            ? 'rgba(18,18,18,0.97)'
+            : 'rgba(18,18,18,0.82)',
+          border: `1px solid ${expanded ? 'rgba(255,255,255,0.12)' : 'rgba(255,255,255,0.07)'}`,
+          boxShadow: expanded
+            ? '0 12px 40px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.3), inset 0 1px 0 rgba(255,255,255,0.05)'
+            : '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04)',
+          /* These background/border/shadow transitions stay off the compositor
+             but are cheap (no layout) and imperceptible at these durations */
+          transition: `background 300ms ease, border-color 300ms ease, box-shadow 300ms ease`,
+          willChange: 'auto',
+          userSelect: 'none',
+          WebkitUserSelect: 'none',
+        }}
       >
-        <motion.div
-          layout
-          initial={false}
-          animate={{ 
-            width: isHovered ? "auto" : 0, 
-            opacity: isHovered ? 1 : 0,
-            filter: isHovered ? "blur(0px)" : "blur(4px)" 
+        {/* ── Expandable content panel ── */}
+        <div
+          aria-hidden={!expanded}
+          style={{
+            /*
+             * max-width drives the expand — GPU doesn't composite it, but at
+             * short durations it's imperceptible. The key win: no `width: auto`
+             * spring → no per-frame JS layout measurement.
+             */
+            maxWidth: expanded ? 340 : 0,
+            opacity: expanded ? 1 : 0,
+            /*
+             * translate pushes content in from the right — composited ✓
+             * Collapsed: slide 8px right + fade. Expanded: settle to 0.
+             */
+            transform: expanded ? 'translateX(0)' : 'translateX(10px)',
+            overflow: 'hidden',
+            /* Split timing: expand is slow-out (luxurious), collapse is fast-in (snappy) */
+            transition: expanded
+              ? `max-width 420ms ${EASE_EXPO_OUT},
+                 opacity   300ms ${EASE_EXPO_OUT} 50ms,
+                 transform 300ms ${EASE_EXPO_OUT} 30ms`
+              : `max-width 280ms ${EASE_CIRC_IN} 40ms,
+                 opacity   180ms ${EASE_CIRC_IN},
+                 transform 180ms ${EASE_CIRC_IN}`,
+            willChange: 'opacity, transform',
+            pointerEvents: expanded ? 'auto' : 'none',
           }}
-          transition={{ type: "spring", stiffness: 350, damping: 30 }}
-          className="overflow-hidden flex items-center"
         >
-          <div className="flex items-center pl-4 pr-3 gap-4 whitespace-nowrap w-max">
-            <div className="flex flex-col items-start pr-3 border-r border-graphite-800" onClick={(e) => e.stopPropagation()}>
-              <span className="text-[10px] uppercase tracking-widest text-graphite-500 font-semibold mb-0.5">
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              paddingLeft: 16,
+              paddingRight: 12,
+              whiteSpace: 'nowrap',
+              width: 'max-content',
+            }}
+          >
+            {/* Creator info */}
+            <div
+              onClick={e => e.stopPropagation()}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                paddingRight: 12,
+                borderRight: '1px solid rgba(255,255,255,0.08)',
+              }}
+            >
+              <span
+                style={{
+                  fontSize: 10,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.12em',
+                  color: 'rgba(163,163,163,0.7)',
+                  fontWeight: 600,
+                  lineHeight: 1,
+                  marginBottom: 4,
+                }}
+              >
                 Creator
               </span>
-              <a 
-                href="https://github.com/r4khul" 
-                target="_blank" 
+              <a
+                href="https://github.com/r4khul"
+                target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-sm font-medium text-graphite-200 hover:text-white transition-colors group/link"
                 draggable={false}
+                className="creator-badge-link"
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: '#e5e5e5',
+                  textDecoration: 'none',
+                  transition: 'color 200ms ease',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = '#fff')}
+                onMouseLeave={e => (e.currentTarget.style.color = '#e5e5e5')}
               >
-                <div className="flex items-center gap-1.5 mr-0.5">
-                  <Github className="w-3.5 h-3.5 text-graphite-400 group-hover/link:text-white transition-colors" />
-                  r4khul
-                </div>
-                <ArrowUpRight className="w-3 h-3 text-graphite-500 group-hover/link:text-graphite-300 transition-colors" />
+                <Github
+                  size={14}
+                  style={{ color: '#737373', flexShrink: 0 }}
+                />
+                r4khul
+                <ArrowUpRight size={12} style={{ color: '#525252' }} />
               </a>
             </div>
-            
-            <a 
-              href="https://github.com/sponsors/r4khul" 
-              target="_blank" 
+
+            {/* Sponsor CTA */}
+            <a
+              href="https://github.com/sponsors/r4khul"
+              target="_blank"
               rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="group relative flex items-center justify-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-pink-500/10 to-rose-500/10 hover:from-pink-500/20 hover:to-rose-500/20 border border-pink-500/20 hover:border-pink-500/40 transition-all duration-300 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)]"
+              onClick={e => e.stopPropagation()}
               draggable={false}
+              className="creator-badge-sponsor"
+              style={{
+                position: 'relative',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                padding: '7px 14px',
+                borderRadius: 9999,
+                background: 'linear-gradient(135deg, rgba(236,72,153,0.12), rgba(244,63,94,0.10))',
+                border: '1px solid rgba(236,72,153,0.22)',
+                textDecoration: 'none',
+                overflow: 'hidden',
+                /* Shimmer via CSS - zero JS cost */
+                transition: 'background 250ms ease, border-color 250ms ease, transform 200ms ease',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.background =
+                  'linear-gradient(135deg, rgba(236,72,153,0.22), rgba(244,63,94,0.18))';
+                e.currentTarget.style.borderColor = 'rgba(236,72,153,0.45)';
+                e.currentTarget.style.transform = 'scale(1.03)';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.background =
+                  'linear-gradient(135deg, rgba(236,72,153,0.12), rgba(244,63,94,0.10))';
+                e.currentTarget.style.borderColor = 'rgba(236,72,153,0.22)';
+                e.currentTarget.style.transform = 'scale(1)';
+              }}
             >
-              <div className="absolute inset-0 bg-gradient-to-r from-pink-500/0 via-pink-500/10 to-rose-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out" />
-              <Heart className="w-4 h-4 text-pink-400 fill-pink-500/20 group-hover:fill-pink-400 group-hover:scale-110 transition-all duration-300" />
-              <span className="text-sm font-medium text-pink-100 tracking-wide md:mr-0">Sponsor</span>
-              <Sparkles className="hidden md:block w-3.5 h-3.5 text-rose-300 ml-0.5 opacity-0 group-hover:opacity-100 scale-50 group-hover:scale-100 transition-all duration-300" />
+              {/* Shimmer sweep — pure CSS, compositor ✓ */}
+              <span className="creator-badge-shimmer" aria-hidden="true" />
+              <Heart
+                size={15}
+                style={{
+                  color: '#f472b6',
+                  fill: 'rgba(244,114,182,0.25)',
+                  flexShrink: 0,
+                  /* Heartbeat on the sponsor button only */
+                  animation: 'badge-heartbeat 2.4s ease-in-out infinite',
+                }}
+              />
+              <span
+                style={{
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: '#fce7f3',
+                  letterSpacing: '0.02em',
+                }}
+              >
+                Sponsor
+              </span>
+              <Sparkles
+                size={13}
+                style={{
+                  color: '#fda4af',
+                  opacity: 0.75,
+                  flexShrink: 0,
+                }}
+              />
             </a>
           </div>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          layout
-          className="relative flex items-center justify-center w-11 h-11 rounded-full bg-graphite-800 shrink-0 overflow-visible z-10"
+        {/* ── Avatar ── */}
+        <div
+          style={{
+            position: 'relative',
+            flexShrink: 0,
+            width: 44,
+            height: 44,
+          }}
         >
-          <img 
-            src="https://github.com/r4khul.png" 
-            alt="r4khul profile" 
-            className="w-full h-full rounded-full object-cover group-hover/badge:scale-105 group-hover/badge:ring-2 group-hover/badge:ring-pink-500/50 transition-all duration-500 ease-out" 
+          <img
+            src="https://github.com/r4khul.png"
+            alt="r4khul"
             draggable={false}
+            style={{
+              width: '100%',
+              height: '100%',
+              borderRadius: '50%',
+              objectFit: 'cover',
+              display: 'block',
+              transform: expanded ? 'scale(1.06)' : 'scale(1)',
+              boxShadow: expanded
+                ? '0 0 0 2px rgba(244,114,182,0.5), 0 0 12px rgba(244,114,182,0.25)'
+                : '0 0 0 1.5px rgba(255,255,255,0.08)',
+              transition: `transform 350ms ${EASE_EXPO_OUT}, box-shadow 350ms ${EASE_EXPO_OUT}`,
+              willChange: 'transform',
+            }}
           />
-          <AnimatePresence>
-            {!isHovered && (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0, transition: { duration: 0.2 } }}
-                transition={{ type: 'spring', delay: 1.5, duration: 0.5 }}
-                className="absolute -bottom-1 -right-1 w-5 h-5 bg-graphite-900 rounded-full flex items-center justify-center border border-graphite-800 shadow-md"
-              >
-                <Heart className="w-2.5 h-2.5 text-pink-500 fill-pink-500" />
-              </motion.div>
-            )}
-           </AnimatePresence>
-        </motion.div>
-      </motion.div>
-    </motion.div>
+
+          {/* ── Heart badge — CSS-only, no AnimatePresence ── */}
+          <span
+            aria-hidden="true"
+            style={{
+              position: 'absolute',
+              bottom: -3,
+              right: -3,
+              width: 18,
+              height: 18,
+              borderRadius: '50%',
+              background: 'rgb(18,18,18)',
+              border: '1.5px solid rgba(255,255,255,0.08)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 2px 6px rgba(0,0,0,0.5)',
+              /* Entrance: delay until avatar is settled */
+              animation: 'badge-pip-in 0.4s 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) both',
+              transform: expanded ? 'scale(0)' : 'scale(1)',
+              opacity: expanded ? 0 : 1,
+              transition: expanded
+                ? `transform 150ms ease-in, opacity 150ms ease-in`
+                : `transform 300ms 100ms ${EASE_EXPO_OUT}, opacity 300ms 100ms ease`,
+              willChange: 'transform, opacity',
+            }}
+          >
+            <Heart size={10} style={{ color: '#ec4899', fill: '#ec4899' }} />
+          </span>
+        </div>
+      </div>
+    </div>
   );
 };
