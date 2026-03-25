@@ -65,9 +65,13 @@ const footerLinks: FooterLink[] = [
     external: true,
     iconClassName: 'text-amber-muted',
     icon: (
-      <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor" aria-hidden="true">
-        <path d="m3 2 12 10L3 22V2zm14.5 8.5 3.5 1.5-3.5 1.5-2.2-1.5 2.2-1.5z" />
-      </svg>
+      <Image
+        src="/google-play-store-icon.svg"
+        alt="Play Store"
+        width={14}
+        height={14}
+        className="w-[14px] h-[14px]"
+      />
     ),
   },
   {
@@ -103,11 +107,10 @@ export const Footer = () => {
   return (
     <footer className="py-12 lg:py-16 px-6 sm:px-8 lg:px-16 border-t border-graphite-900">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-        {/* Logo */}
         <div className="flex items-center gap-3">
-          <div className="w-10 h-10 rounded-xl bg-graphite-800 flex items-center justify-center p-2">
+          <div className="w-10 h-10 rounded-xl bg-graphite-900 flex items-center justify-center p-2">
             <Image
-              src="/images/black-unfilter-bg-white.png"
+              src="/white-unfilter-nobg.png"
               alt="Unfilter Logo"
               width={24}
               height={24}
@@ -115,21 +118,20 @@ export const Footer = () => {
             />
           </div>
           <div className="flex flex-col leading-tight">
-            <span className="text-lg font-semibold text-graphite-200">UnFilter</span>
-            <span className="text-[10px] text-graphite-500">peel back the icon</span>
-            <span className="text-[10px] text-graphite-500">see stack</span>
+            <span className="text-lg font-semibold text-graphite-200">Unfilter.</span>
+            <span className="text-[10px] text-graphite-500">Peel back the icon.</span>
+            <span className="text-[10px] text-graphite-500">See the stack.</span>
           </div>
         </div>
-        
-        {/* Links */}
-        <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
+
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm">
           {footerLinks.map((link) => (
             <a
               key={link.label}
               href={link.href}
               target={link.external ? '_blank' : undefined}
               rel={link.external ? 'noreferrer noopener' : undefined}
-              className="group inline-flex items-center gap-2 rounded-full border border-graphite-800 bg-graphite-900/40 px-3 py-1.5 text-graphite-400 transition-all duration-200 hover:-translate-y-0.5 hover:border-graphite-700 hover:bg-graphite-800/70 hover:text-graphite-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-steel-400/40"
+              className="group inline-flex items-center gap-1.5 text-graphite-500 transition-colors duration-200 hover:text-graphite-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-steel-400/40 rounded"
             >
               <span className={`transition-colors duration-200 ${link.iconClassName} group-hover:text-graphite-100`}>
                 {link.icon}
@@ -138,11 +140,8 @@ export const Footer = () => {
             </a>
           ))}
         </div>
-        
-        {/* Copyright */}
-        <span className="text-xs text-graphite-600 tracking-wide">
-          2026 Unfilter. MIT Licensed.
-        </span>
+
+        <span className="text-xs text-graphite-600 tracking-wide">2026 Unfilter. MIT Licensed.</span>
       </div>
     </footer>
   );
