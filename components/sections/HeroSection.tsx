@@ -112,6 +112,16 @@ export const HeroSection = () => {
               <StatPill key={stat.label} {...stat} delay={0.8 + i * 0.1} />
             ))}
           </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.9, ease: [0.23, 1, 0.32, 1] as const }}
+            className="mt-10 sm:mt-12 flex items-center justify-center gap-3 sm:gap-5 lg:hidden"
+          >
+            <PhoneMockup targetRef={containerRef} src="/images/home-white.jpg" mobile mobileSide="left" />
+            <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" mobile mobileSide="right" />
+          </motion.div>
         </motion.div>
       </div>
 
