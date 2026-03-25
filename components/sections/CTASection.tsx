@@ -2,7 +2,6 @@
 
 import { motion } from 'framer-motion';
 import { Download, ExternalLink } from 'lucide-react';
-import Image from 'next/image';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 
 export const CTASection = () => {
@@ -28,11 +27,19 @@ export const CTASection = () => {
             </p>
             
             <div className="flex flex-col sm:flex-row justify-center gap-4">
-              <MagneticButton variant="primary" className="text-base">
+              <MagneticButton
+                variant="primary"
+                className="text-base"
+                onClick={() => window.open('https://github.com/escapebranch/unfilter/releases', '_blank')}
+              >
                 <Download className="w-5 h-5" />
                 Get Unfilter
               </MagneticButton>
-              <MagneticButton variant="secondary" className="text-base">
+              <MagneticButton
+                variant="secondary"
+                className="text-base"
+                onClick={() => window.open('https://github.com/escapebranch/unfilter/releases/latest', '_blank')}
+              >
                 <ExternalLink className="w-5 h-5" />
                 Latest Release
               </MagneticButton>

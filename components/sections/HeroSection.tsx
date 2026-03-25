@@ -2,13 +2,13 @@
 
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion';
 import Image from 'next/image';
-import { Play, Github, ChevronDown } from 'lucide-react';
+import { Github, ChevronDown } from 'lucide-react';
 import { GithubStarChip } from '@/components/ui/GithubStarChip';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 import { StatPill } from '@/components/ui/StatPill';
+import { PhoneMockup } from '@/components/ui/PhoneMockup';
 import { stats } from '@/lib/data';
 import { useRef } from 'react';
-import { PhoneMockup } from '@/components/ui/PhoneMockup';
 
 export const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -23,11 +23,10 @@ export const HeroSection = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex items-start lg:items-center justify-center px-4 sm:px-6 lg:px-16 pt-14 sm:pt-16 lg:pt-20 pb-12 sm:pb-20 lg:pb-32 w-full max-w-full">
+    <section ref={containerRef} className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-16 pt-20 pb-16 sm:pb-20 lg:pb-32 w-full max-w-full">
       <div className="max-w-4xl mx-auto w-full">
         <motion.div 
           style={shouldReduceMotion ? {} : { y: heroY, opacity: heroOpacity }}
-          className="relative"
         >
           {/* Android Chip */}
           <motion.div
@@ -55,9 +54,11 @@ export const HeroSection = () => {
             transition={{ duration: 1, delay: 0.1, ease: [0.23, 1, 0.32, 1] as const }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold max-w-4xl lg:max-w-5xl xl:max-w-6xl mb-6 lg:mb-8 leading-[0.9] tracking-tight break-words font-sans"
           >
-            Unfilter. Peel back the icon.
+            Unfilter.
             <br />
-            <span className="text-graphite-400 font-normal">See the stack.</span>
+            <span className="text-[0.7em] text-graphite-400 font-normal">Peel back the icon.</span>
+            <br />
+            <span className="text-[0.7em] text-graphite-400 font-normal">See the stack.</span>
           </motion.h1>
 
           {/* Supporting Copy */}
@@ -67,9 +68,8 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.3, ease: [0.23, 1, 0.32, 1] as const }}
             className="text-base lg:text-lg text-graphite-400 max-w-lg lg:max-w-xl mb-10 lg:mb-14 leading-relaxed"
           >
-            Unfilter is a playful dev tool for peeking into the apps on your phone. 
-            It helps you learn what apps are made of by spotting frameworks, native clues, 
-            shared libraries, and other fingerprints left behind by the build.
+            Unfilter uncovers what installed apps are built with, layered with task-manager signal, 
+            memory/storage insight, and privacy-first local scanning.
           </motion.p>
 
           {/* CTAs */}
@@ -77,10 +77,16 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.5, ease: [0.23, 1, 0.32, 1] as const }}
-            className="flex flex-col sm:flex-row gap-4 mb-7 sm:mb-12 lg:mb-16 xl:mb-24"
+            className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 lg:mb-16 xl:mb-24"
           >
             <MagneticButton variant="primary">
-              <Play className="w-4 h-4" fill="currentColor" />
+              <Image
+                src="/google-play-store-icon.svg"
+                alt="Play Store"
+                width={16}
+                height={16}
+                className="w-4 h-4"
+              />
               Download on Play Store
             </MagneticButton>
             <MagneticButton
@@ -106,30 +112,9 @@ export const HeroSection = () => {
               <StatPill key={stat.label} {...stat} delay={0.8 + i * 0.1} />
             ))}
           </motion.div>
-
-          {/* Mobile mockup */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.85, ease: [0.23, 1, 0.32, 1] as const }}
-            className="mt-10 relative h-52 sm:h-56 lg:hidden"
-          >
-            <div className="absolute left-2 bottom-2 sm:left-6">
-              <PhoneMockup
-                targetRef={containerRef}
-                src="/images/filter-stack-bottomsheet-black.jpg"
-                mobile
-                mobileSide="left"
-              />
-            </div>
-            <div className="absolute right-3 bottom-0 sm:right-8">
-              <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" mobile mobileSide="right" />
-            </div>
-          </motion.div>
         </motion.div>
       </div>
 
-      {/* Phone mockup (right) */}
       <PhoneMockup targetRef={containerRef} src="/images/home-black.jpg" />
 
       {/* Scroll Indicator */}

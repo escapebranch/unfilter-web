@@ -16,16 +16,16 @@ export const TrustSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: i * 0.2, ease: [0.23, 1, 0.32, 1] as const }}
               viewport={{ once: true }}
-              className="relative p-10 lg:p-12 rounded-3xl bg-gradient-to-br from-graphite-900 to-graphite-950 border border-graphite-800 overflow-hidden group"
+              className="relative p-8 sm:p-10 lg:p-12 rounded-3xl bg-gradient-to-br from-graphite-900 to-graphite-950 border border-graphite-800 overflow-hidden group"
             >
               {/* Large Background Stat */}
-              <div className="absolute top-0 right-0 p-8 lg:p-10">
-                <span className="text-[6rem] lg:text-[8rem] font-bold text-graphite-800/50 leading-none select-none">
+              <div className="absolute top-4 right-4 sm:top-0 sm:right-0 p-0 sm:p-8 lg:p-10 pointer-events-none">
+                <span className="text-[4.5rem] sm:text-[6rem] lg:text-[8rem] font-bold text-graphite-800/50 leading-none select-none">
                   {card.stat}
                 </span>
               </div>
               
-              <div className="relative z-10">
+              <div className="relative z-10 pr-16 sm:pr-0">
                 {/* Icon */}
                 <div className="w-16 h-16 rounded-2xl bg-graphite-800 flex items-center justify-center mb-8 group-hover:scale-110 transition-transform duration-500">
                   <card.icon className="w-8 h-8 text-steel-400" />

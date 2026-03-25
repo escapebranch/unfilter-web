@@ -28,29 +28,6 @@ export default function PrivacyPage() {
             Last Updated: March 19, 2026
           </p>
         </div>
-        {/* Privacy at a Glance */}
-        <div className="mb-8 lg:mb-12">
-          <div className="bg-graphite-900/50 border border-graphite-800 rounded-lg p-6 lg:p-8 flex flex-col lg:flex-row items-start gap-6">
-            <div className="flex-1">
-              <h3 className="text-xl font-semibold text-graphite-50 mb-2">Privacy at a Glance</h3>
-              <p className="text-graphite-300 mb-3">Unfilter is privacy-first: all scanning and analysis run locally on your Android device; the app collects zero user data or telemetry by default. The only network call is an anonymous fetch of the GitHub star count for the public repository.</p>
-              <ul className="list-disc pl-6 space-y-2 text-graphite-300">
-                <li>Offline-first: all scanning, fingerprinting, memory and storage insights run on-device only.</li>
-                <li>Zero data collected: the app does not transmit or store user data on servers.</li>
-                <li>Single anonymous network call: GitHub API for repo star count only.</li>
-                <li>Minimal permissions only: requested permissions are only those necessary to analyze installed apps locally.</li>
-                <li>Open source and auditable: MIT-licensed code at <a href="https://github.com/escapebranch/unfilter" className="text-steel-400 hover:text-steel-300">github.com/escapebranch/unfilter</a>.</li>
-                <li>Opt-in sharing only: any sharing (reports, logs) happens only if the user explicitly chooses to share.</li>
-              </ul>
-            </div>
-            <div className="w-full lg:w-64">
-              <div className="bg-graphite-950 border border-graphite-800 rounded-md p-4 text-center">
-                <p className="text-sm text-graphite-400 mb-2">Effective Date</p>
-                <p className="text-graphite-50 font-semibold">March 19, 2026</p>
-              </div>
-            </div>
-          </div>
-        </div>
 
         {/* Content */}
         <div className="prose prose-invert prose-lg max-w-none">
