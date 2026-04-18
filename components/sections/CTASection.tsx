@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Download, ExternalLink } from 'lucide-react';
+import { Download, ExternalLink, Play } from 'lucide-react';
 import { MagneticButton } from '@/components/ui/MagneticButton';
 
 export const CTASection = () => {
@@ -30,10 +30,18 @@ export const CTASection = () => {
               <MagneticButton
                 variant="primary"
                 className="text-base"
+                onClick={() => window.open('https://play.google.com/store/apps/details?id=com.escapebranch.unfilter', '_blank')}
+              >
+                <Play className="w-5 h-5" />
+                Get on Play Store
+              </MagneticButton>
+              <MagneticButton
+                variant="secondary"
+                className="text-base"
                 onClick={() => window.open('https://github.com/escapebranch/unfilter/releases', '_blank')}
               >
                 <Download className="w-5 h-5" />
-                Get Unfilter
+                Download APK
               </MagneticButton>
               <MagneticButton
                 variant="secondary"

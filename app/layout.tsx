@@ -16,6 +16,11 @@ export const metadata: Metadata = {
   title: 'Unfilter | Stack Intelligence for Android',
   description:
     'Unfilter reveals what your installed apps are built with using local, privacy-first static analysis.',
+  icons: {
+    icon: '/images/black-unfilter-bg-white.png',
+    shortcut: '/images/black-unfilter-bg-white.png',
+    apple: '/images/black-unfilter-bg-white.png',
+  },
   openGraph: {
     title: 'Unfilter | Stack Intelligence for Android',
     description:

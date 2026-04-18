@@ -79,7 +79,10 @@ export const HeroSection = () => {
             transition={{ duration: 0.8, delay: 0.5, ease: [0.23, 1, 0.32, 1] as const }}
             className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-12 lg:mb-16 xl:mb-24"
           >
-            <MagneticButton variant="primary">
+            <MagneticButton 
+              variant="primary"
+              onClick={() => window.open('https://play.google.com/store/apps/details?id=com.escapebranch.unfilter', '_blank')}
+            >
               <Image
                 src="/google-play-store-icon.svg"
                 alt="Play Store"
